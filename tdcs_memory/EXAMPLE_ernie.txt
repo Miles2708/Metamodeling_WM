@@ -1,0 +1,86 @@
+### Meta-Modeling Walkthrough ###
+
+# Dataset - Available on SimNIBS github (see https://simnibs.github.io/simnibs/build/html/dataset.html for download instruction)
+
+# Setup ernie directory
+WDIR: Working Directory, example: C:\Users\miles\tdcs_memory
+WDIR/subjects/ernie
+WDIR/subjects/ernie/ernie.msh - copy ernie head mesh from m2m_ernie into base ernie subject directory
+WDIR/subjects/ernie/m2m_ernie
+
+## Generate tDCS Simulations
+SIMDIR: SimNIBS User Directory, example: C:\Users\miles\SimNIBS-3.2
+WDIR: Working Directory, example: C:\Users\miles\tdcs_memory\
+
+# Within matlab run the setup_subject_sims_tdcs.m function
+SUBJECT_s = 'ernie';
+setup_subject_sims_tdcs(SUBJECT_s, SIMDIR, WDIR)
+# Function Outputs
+WDIR/subjects/ernie/simulations (tdcs simulation directory)
+WDIR/subjects/ernie/simulations/STUDY_ID (study specific tdcs simulation directory)
+WDIR/subjects/ernie/simulations/STUDY_ID/t.mat
+WDIR/subjects/ernie/simulations/STUDY_ID/simnibs_simulation_########-######.mat
+WDIR/subjects/ernie/simulations/STUDY_ID/simnibs_simulation_########-######.log
+WDIR/subjects/ernie/simulations/STUDY_ID/field_summary.txt
+WDIR/subjects/ernie/simulations/STUDY_ID/ernie_TDCS_1_scalar.msh.opt
+WDIR/subjects/ernie/simulations/STUDY_ID/ernie_TDCS_1_scalar.msh
+WDIR/subjects/ernie/simulations/STUDY_ID/ernie_TDCS_1_el_currents.geo
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/ernie_TDCS_1_scalar_fsavg.msh.opt
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/ernie_TDCS_1_scalar_fsavg.msh
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/lh.ernie_TDCS_1_scalar.fsavg.E.angle
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/lh.ernie_TDCS_1_scalar.fsavg.E.norm
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/lh.ernie_TDCS_1_scalar.fsavg.E.normal
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/lh.ernie_TDCS_1_scalar.fsavg.E.tangent
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/rh.ernie_TDCS_1_scalar.fsavg.E.angle
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/rh.ernie_TDCS_1_scalar.fsavg.E.norm
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/rh.ernie_TDCS_1_scalar.fsavg.E.normal
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays/rh.ernie_TDCS_1_scalar.fsavg.E.tangent
+WDIR/subjects/ernie/simulations/STUDY_ID/fsavg_overlays
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/ernie_TDCS_1_scalar_central.msh.opt
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/ernie_TDCS_1_scalar_central.msh
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/lh.ernie_TDCS_1_scalar.central.E.angle
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/lh.ernie_TDCS_1_scalar.central.E.norm
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/lh.ernie_TDCS_1_scalar.central.E.normal
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/lh.ernie_TDCS_1_scalar.central.E.tangent
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/lh.central
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/rh.ernie_TDCS_1_scalar.central.E.angle
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/rh.ernie_TDCS_1_scalar.central.E.norm
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/rh.ernie_TDCS_1_scalar.central.E.normal
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/rh.ernie_TDCS_1_scalar.central.E.tangent
+WDIR/subjects/ernie/simulations/STUDY_ID/subject_overlays/rh.central
+
+## Generate Subject Simulation Summary File
+SIMDIR: SimNIBS User Directory, example: C:\Users\miles\SimNIBS-3.2
+WDIR: Working Directory, example: C:\Users\miles\tdcs_memory\
+
+# Within matlab run the subject_sim_summary.m function
+SUBJECT_s = 'ernie';
+subject_sim_summary(SUBJECT_s, SIMDIR, WDIR)
+# Function Output
+WDIR/subjects/ernie/data_allstudies.mat (matlab structure, simulation summary file)
+# Inside data_allstudies file
+amount_of_meshes = 354; % Number of simulations used across all studies
+field_idx_normE = 2; % SimNIBS GM volume index value
+gm_normElist = 267855 X 354 double array % normE values in GM nodes across all simulations
+hedgesg = 1 x 354 double array % vector of effect size values
+onoff = 1 x 354 double array % vector that categorizes an outcome as 1 online or 2 offline
+outcome = 1 x 354 double array % vector that categorizes an outcome as 1 & 3 accuracy (percentage correct and D), and 2 reaction time. Note that other outcome measures (4-9) are not used here due to the limited sample size
+task_type1 = 1 x 354 double array % vector that categorizes an outcome as 1 verbal or 2 visuospatial. Note that tasks that have both elements (indicated as 999) are excluded.
+
+
+## Run Subject Specific Analysis
+SIMDIR: SimNIBS User Directory, example: C:\Users\miles\SimNIBS-3.2
+WDIR: Working Directory, example: C:\Users\miles\tdcs_memory\
+
+# Within matlab run the analysis_subject.m function
+SUBJECT_s = 'ernie';
+analysis_subject(SUBJECT_s, SIMDIR, WDIR)
+# Function Output
+WDIR/analysis/ernie (subject specific analysis directory)
+WDIR/analysis/ernie/mesh_corr_accuracy.msh (PEC map of accuracy outcomes)
+WDIR/analysis/ernie/mesh_corr_offline.msh (PEC map of offline tDCS outcomes)
+WDIR/analysis/ernie/mesh_corr_online.msh (PEC map of online tDCS outcomes)
+WDIR/analysis/ernie/mesh_corr_RT.msh (PEC map of reaction time outcomes)
+WDIR/analysis/ernie/mesh_corr_verbal.msh (PEC map of outcomes on verbal WM studies)
+WDIR/analysis/ernie/mesh_corr_visuospatial.msh (PEC map of outcomes on visuospatial WM studies)
